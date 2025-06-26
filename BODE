@@ -27,3 +27,23 @@ clc ,close all
  grid
  disp(' [Gm, Pm, pcf, gcf] are: ');
  Gm,Pm,pcf,gcf % display the data
+
+
+
+clc
+ close all ;
+ clear all
+ s = tf('s');
+ G = 1/(s*(s+1)*(s+5));
+ k = 10;
+ sys = k*G;
+ bode(sys);  grid ;
+ % to determine the phase margin and gain margin from the plot
+ disp(' Gain Margin & Phase margin are as follows :')
+ [Gm,Pm,wcp,wcg] = margin(sys)
+ disp('Gain Mar,Gm=  at wcg =')  ; disp([Gm,wcg])
+ disp('Phas Mar,Pm=  at wcp =')  ; disp([Pm,wcg]);
+ disp([Gm, Pm, wcp, wcg])
+ %     
+Use  the  MATLAB tools viz.,'rltool(sys)'
+ rltool(sys);
