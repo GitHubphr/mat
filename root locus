@@ -1,1 +1,85 @@
+ %Ex1.Program for Root locus diagram
+ % Program for root locus diagram and to determine the
+ % Range of K for which the system is Stable
+ clc ; clear all ;close all
+ n = [1]; % numerator
+ d = [1, 3, 2, 0]; % denominator coefficients
+sys = tf(n,d); % Convert in to the  system transfer function,
+ G(s).
+ printsys(n,d)
+ rlocus(sys) ;
+ disp(' Select a point at the beginning of the root locus ');
+ [K1, poles] = rlocfind(sys)
+ disp(' Select the  point at the inter section of root locus with
+ imaginary axis');
+ [K2, poles] = rlocfind(sys)
+ disp('Range of K for which system is stable: K=0 to');
+ disp(K2-K1);
+
+
+
+.2.....Program to find the Angle of departure and break away
+ % points in the root locus.
+ clear all ; close all ; clc ;
+ N = [1];
+ D = [1, 8, 36, 80, 0];
+ printsys(N,D);
+ % Convert in to the system transfer function, G(s).
+ syst =  tf(N,D) ; rlocus(syst) ;
+ % Select the complex poles to determine the angle of Departure
+ [K1, ps1] = rlocfind(syst)
+ [K2, ps2] = rlocfind(syst)
+ display(' Angle of Departure (phi)');
+ phi = angle(ps1(1)- ps2(2))* 180/3.14
+ % Select the Breakaway point on Real axis
+ [K3, ps3] = rlocfind(syst)
+ disp(' Break away points ');
+
+
+3.....MATLAB program to determine poles and zeros and also to sketch
+ root locus
+ clear all
+ clc, close all
+ Num = [1 2 4];
+ a = [1 10 24 0];   b = [1 1.4 1];
+ Den = conv(a,b);
+ % conv(A, B) convolves vectors A and B.i.e polynomial
+ multiplication.
+ printsys(Num, Den, 's');
+ disp('  '),disp('  '); %  skip or  leave 2 lines
+ display('---------------------------------------------------')
+ disp('open loop poles and zeros');
+ z1 = roots(Num)
+ p1 = roots(Den)
+ s = tf('s');
+ sys = (s^2+2*s+4)/((s^3+10*s^2+24*s)*(s^2+1.4*s+1));
+ z = zero(sys)
+ p = pole(sys)
+ rlocus(sys);
+ title('Root Locus plot: G(s) = (S^2+2s+4) / ((s^3+10s^2+24s)
+ (s^2+1.4s+1))');
+% to find closed loop poles
+ Cl_num = Den + [0 0 0 1 2 4] ; % Numerator of the closed loop
+ tfr.fn
+ p3=roots(Cl_num)
+ % use rtool for more detailed analysis
+ rltool(sys);
+
+
+
+ 4.s=tf('s');
+ g1=(s+1)/(s*(s-1)*(s^2+4*s+16));
+ g2=1/(s*(s^2+6*s+25));
+ g3=(s+0.4)/(s^2*(s+3.6));
+ g4=(s+2)/(s^2+2*s+2);
+ subplot(2,2,1);
+ rlocus(g1);
+ xlabel(''); title('G(s) = (s+1)/(s(s-1)(s^2+4s+16))');
+ subplot(2,2,2);
+ rlocus(g2);
+ xlabel(''); title('G(s) = 1/(s(s^2+6s+25))')
+ subplot(2,2,3);
+ rlocus(g3);
+ title('G(s) = (s+0.4)/(s^2(s+3.6))')
+ subplot(2,2,4); rlocus(g4); title('G(s) = (s+2)/(s^2+2s+2)')
 
