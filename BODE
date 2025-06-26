@@ -29,7 +29,8 @@ clc ,close all
  Gm,Pm,pcf,gcf % display the data
 
 
-
+ PLOTS for the system having transfer function:
+ % G1 = 10 / s(s +1)(s + 5);
 clc
  close all ;
  clear all
@@ -47,3 +48,6 @@ clc
  %     
 Use  the  MATLAB tools viz.,'rltool(sys)'
  rltool(sys);
+
+
+
