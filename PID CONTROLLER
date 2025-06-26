@@ -1,1 +1,70 @@
+ clc
+ clear all ; close all
+ % Here G(s) is the tfr. fun. of the plant or process to be controlled by the controller
+ % tf(num, den) => G(s)
+ G = tf(10, [1,10,35,50,24]) % tf(num, den)
+ %  Closed loop tfr. fun. Or plant model M(s) is given by
+ H =1 ;
+ M = G/(1+G*H); % Assume unity feedback, H(s) =1
+ display(' Time Domain  Specifications of M(s), plant model ') ;
+ disp( '======================================================')
+ %  stepinfo( ) Computes step response characteristics or T.D. Specifications
+ %  i.e. Tr, Ts, Mp (%Overshoot), peak value (Ymax) ,Tp (PeakTime), etc
+ sp = stepinfo(M)
+ [y,t]=step(M);
+ Ymax = max(y);
+ % displays the T.D data
+ SSE = (1- max(y))* 100; % Steady state error
+ disp(' With out  P- controller ');
+ fprintf(' Max.Output, Ymax = %4.3f \n',Ymax);
+ fprintf(' Steady state Error, SSE = %4.3f %% \n', SSE);
+ figure(1) ;
+ step(M); grid ;
+ title(['Step Response without P-controler with % SSE = ',num2str(SSE)]);
 
+
+%Program-2
+ % Programs to simulate P-Controller only. Pgrm.1(b).
+ % Program to illustrate the effect of increase of Kp values
+ % Proportional controller only.
+ clc ,clear all; %--don't use: 'close all'
+ % G(s) is the tfr. fun. of process to be controlled by the controller
+ G =tf(10,[1,10,35,50,24]) % tf(num, den)-> G(s)
+ figure(2) ;
+ n = 0; % plot no. for n-sub plots
+ % To find the step responses for different values of P or Gain, Kp
+ % Note:  Kp#0 and Kp > 0
+ for Kp = 1: 2: 11 % P-controller gain,
+ Gc = Kp*G; % forward tfr. fn with controller
+ M = Gc/(1+Gc); % Closed loop system with H(s)=1
+ n=n+1; % plot no.for next graph
+ subplot(2,3,n);
+ step(M); grid ;
+ title([' Response for Kp = ',num2str(Kp)]);
+ end
+
+Program-3
+ clc ;clear all ;%---don't use close all
+ G =tf(10,[1,10,35,50,24]) % tf(num, den)-> G(s)
+ % assume unity feedback, H(s) =1
+ %-----------------------------------------------------------------
+% Closed loop tfr.fun. can also be found by using the function:
+ 'FEEDBACK()'
+ % feedback()- gives the  Feedback connection of two input/output
+ systems.
+ % M = feedback(G,H) computes a closed-loop model M for the feedback
+ loop:
+ %-----------------------------------------------------------------
+figure(3)
+ subplot(1,2,1)
+ for Kp = (0.1:0.2:1)
+ M=feedback(Kp*G,1); % Closed loop  tfr.fn with H(s) = 1
+ step(M), hold on;
+ end
+ title('P- controller with varible gain, Kp =[0.1 : 0.2 : 1]')
+ subplot(1,2,2)
+ for Kp = [0.1: 1 :6 ] % Note Kp#0
+ M=feedback(Kp*G,1); % unity feed back
+ step(M), hold on;
+ end
+ title(' P controller with variable gain, Kp from 0.1 to 6 ')
