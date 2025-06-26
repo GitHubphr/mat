@@ -68,3 +68,49 @@ figure(3)
  step(M), hold on;
  end
  title(' P controller with variable gain, Kp from 0.1 to 6 ')
+
+
+
+Program to simulate P+D - Controllers
+
+% To obtain the closed loop system response of a system with % Proportional, Proportional-Derivative controllers.
+
+clc; clear all; % don't use 'close all'
+
+Gtf(36,[1 2.4 36])
+
+% Part - B of the program - Optional part
+
+% to Design or to determine suitable values for Kp & Kd using MatLa
+
+% functions" pidtune(sys,'pid') & pid(..)"
+
+% To Design or to obtain a P+D controller in parallel form, Kp= ? % and Kd= ?
+
+disp('---------Simple P + D controller
+
+% plant model or closed loop transfer fun. of given G(s)
+
+sys-feedback(G,1); % System Without controller
+
+% With P - controller ony display ('Controller Values,');
+
+[c] = pidtune(sys,'P')
+
+Gc1 = pid (c.Kp); % Tune or set values for Kp
+
+sys1 = feedback((sys*Gc1), 1); % system1 with P-controller disp('-------');
+
+% With P+D controller
+
+[c] = pidtune(sys,'PD')
+
+Gc2 = pid (c.Kp,0,c.Kd); % Tune or set values for Kp & Kd
+
+sys2 = feedback((sys * Gc2),1); % system with P+D-controller
+
+figure(2); step(sys,sys1,sys2);
+
+legend('without controller','with P controller only','with P+D controller');
+
+title('Step Responses with & without controllers ');
