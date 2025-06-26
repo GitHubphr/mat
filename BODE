@@ -12,3 +12,18 @@ clc ,close all
  grid
  disp(' [Gm,Pm,pcf,gcf] are: ');
  Gm,Pm,pcf,gcf
+
+
+
+clc ,close all
+ clear all
+ n =[50] ;
+ d = [1 9 30 40];
+ fprintf(' The given transfer function is:')
+ printsys(n, d)
+ [Gm, Pm, pcf, gcf] = margin(n, d);
+ mag = 20*log10(Gm) %
+ margin(n,d) % to plot bode diagram
+ grid
+ disp(' [Gm, Pm, pcf, gcf] are: ');
+ Gm,Pm,pcf,gcf % display the data
