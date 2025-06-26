@@ -1,0 +1,66 @@
+ To Verify the above transient specifications computationally
+ % by MATLAB.
+ % Step response of II-order RLC series Network
+ clc, close all , clear all
+ % Enter R, L, C values from the given RLC series- network
+ R = 500;   L = 2; C = 0.32*1e-6;
+ % Tran.fun G(S) numerator and denominator are:
+ num = [0   1/(L*C)];
+ den = [1  (R/L)  1/(L*C)] ;
+ printsys(num, den);
+ % Calculation time domain parameters
+ disp('R = ');  disp(R)
+ wn =  1/(sqrt(L*C))
+ % wn = natural frequency of Oscillations
+ z  =  (R/2)* sqrt(C/L) % zeta ,z = damping factor
+ wd =  wn*sqrt(1-z*z)
+ ts =  4/(z*wn)
+ B =  atan((sqrt(1-z*z))/z) % B = beta
+ tr =  (pi- B)/wd
+ tp =   pi/wd
+ td =  (1+0.7*z)/wn
+ % delay time
+ figure(1)
+ step(num, den);
+ hold on
+ num = [0   1/(L*C)];
+ den = [1  (R/L)  1/(L*C)] ;
+ step(num, den);
+ % Now change the R value to very high value such that, zeta
+ % becomes very high and get the response on the same graph
+ R = 7000;   L = 2; C = 0.32*1e-6;
+ num = [0   1/(L*C)];
+ den = [1  (R/L)  1/(L*C)] ;
+ step(num, den);
+ title('Step responses for First & Last values of R …
+ ..i.e. 500 & 7000');
+ grid
+
+
+
+Example 2.
+ figure(2)
+ hold on
+ 0.005
+ 0.01
+ 0.015
+ 0.02
+ 0.025
+ Time (seconds)
+ 0.03
+ 0.035
+ 0.04
+ 0.045
+ % Draw the step response for different values of R = [500,1000,
+ % 2500, 7000]
+ R = 500;   L = 2; C = 0.32*1e-6;
+ num = [0   1/(L*C)];
+ % To draw the step response different values of R
+ for R = [500 1000  2500 7000]
+ den = [1 (R/L)  1/(L*C)] ;
+ G = tf(num, den); % Tfr. function G(s) = num % den
+ step(G);
+ end
+ title('Step responses for different damping coefficients or R
+ values')
+ grid ; hold off 
